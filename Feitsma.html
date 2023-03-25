@@ -1,55 +1,53 @@
 <!DOCTYPE html>
 <html lang="nl">
 <meta charset="utf-8">
-<head> 
-	<title>Feitsma zeiker 3000</title>
-	<style>
-		body {
-		text-align: left;
-		}
-	</style>
-	<script>
-	do{
-	var geslacht = window.prompt("Ben jij een jongen of een meisje?", "jongen")
-	}while(geslacht == "" && geslacht != "jongen" && geslacht != "meisje")
-	do{
-	var onderwerp = window.prompt("Waar ga je het over hebben?")
-	}while(onderwerp == "" || onderwerp == null || !isNaN(onderwerp))
-	console.log(geslacht)
-	</script>
+<head>
+  <title>Feitsma zeiker 3000</title>
+  <style>
+    body {
+			text-align: left;
+    }
+  </style>
+  <script>
+    do {
+      var geslacht = window.prompt('Ben jij een jongen of een meisje?', 'jongen')
+    } while (geslacht == '' && geslacht != 'jongen' && geslacht != 'meisje')
+    do {
+      var onderwerp = window.prompt('Waar ga je het over hebben?')
+    } while (onderwerp == '' || onderwerp == null || !isNaN(onderwerp))
+  </script>
 </head>
 <body>
-	<text id="text"></text>
-	
-	<script>
-		
-		if(geslacht == "jongen"){
-			var output = document.querySelector("#text")
-		
-			var zeik1 = "Je hoofdvraag was een beetje vaag."
-			var zeik2 = "Je houding was matig."
-			var zeik3 = "Ik had wel liever wat meer voorbeelden gehad."
-			var zeik4 = "Je presentatie was 30 seconden te kort dus er gaat wat vanaf."
-			var zeik5 = "Het was beter geweest als je wat dieper inging op "+onderwerp+"."
-		
-			var i = Math.floor(Math.random() * 5) + 1
-			var k = Math.floor(Math.random() * 5) + 1
-			console.log(k)
-			var n = 0
-		
-			output.innerHTML = '<ul>'
-		
-			do{
-				output.innerHTML += "<li>" + eval("zeik"+i+" ") + '</li><br>'
-				i++
-			}while(i <= k)
-			
-			var cijfer = Math.floor(Math.random() * 4) + 1
-			output.innerHTML += "<li>Het was een voldoende geweest, maar er gaat wel wat vanaf. dus wordt het een "+ cijfer+" </li></ul>"
-		
-		}else{
-			document.write("Goede presentatie, dat wordt zeker een voldoende.")
-		}
-	</script>
+<text id="text"></text>
+
+<script>
+  document.write(getFeedback(geslacht, onderwerp))
+
+  function getFeedback (gender, topic) {
+    // Je hebt geluk!
+    if (geslacht != 'jongen') return 'Goede presentatie, dat wordt zeker een voldoende.'
+
+    // Je bent fucked :(
+    const zeikRepertoire = [
+      'Je hoofdvraag was een beetje vaag.',
+      'Je houding was matig.',
+      'Ik had wel liever wat meer voorbeelden gehad.',
+      'Je presentatie was 30 seconden te kort dus er gaat wat vanaf.',
+      `Het was beter geweest als je wat dieper inging op ${topic}.`]
+
+    let feedback = ''
+    for (let i = 0; i < zeikRepertoire.length; i++) {
+      if (Math.random() > 0.5) {
+        feedback += zeikRepertoire[i] + ' '
+      }
+    }
+
+    // Generates random mark from 1 to 5.4
+    let mark = (Math.random() * 4.4 + 1).toFixed(1)
+    feedback += '<br><br>'
+    feedback += `Het wordt een voldoende. Haha, grapje! Dacht je dat écht het zo makkelijk was? Ik mag jou niet en daarom wordt het een ${mark}`
+    return feedback
+  }
+</script>
 </body>
 </html>
